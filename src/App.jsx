@@ -36,14 +36,14 @@ const MainApp = () => {
                 return (
                     <>
                         <Header title={t('history_gen_title')} onBack={() => setPage('home')} />
-                        <HistoryList items={historyGen} onClear={() => clearHistory('gen')} />
+                        <HistoryList items={historyGen} onClear={() => clearHistory('gen')} type="gen" />
                     </>
                 );
             case 'history-scan':
                 return (
                     <>
                         <Header title={t('history_scan_title')} onBack={() => setPage('home')} />
-                        <HistoryList items={historyScan} onClear={() => clearHistory('scan')} />
+                        <HistoryList items={historyScan} onClear={() => clearHistory('scan')} type="scan" />
                     </>
                 );
             default:

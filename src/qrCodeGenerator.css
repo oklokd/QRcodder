@@ -30,6 +30,12 @@
     width: 100%;
     height: 100%;
     display: block;
+    
+    /* Добавляем эти строки: */
+    padding: 12px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .qr-placeholder {

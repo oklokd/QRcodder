@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { Scanner } from '@yudiel/react-qr-scanner';
 import { useApp } from './context/AppContext';
-import './QrCodeScanner.css';
+import './qrCodeScanner.css';
 
 const settings = {
     audio: false,

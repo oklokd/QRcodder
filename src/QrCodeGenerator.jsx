@@ -3,7 +3,7 @@ import { useState, useCallback, memo, useRef, useEffect } from "react";
 import { useApp } from "./context/AppContext";
 import { useIsMobile } from "./useIsMobile";
 import { downloadQrAsPng } from "./utils/qrUtils";
-import './QrCodeGenerator.css';
+import './qrCodeGenerator.css';
 
 const MAX_LENGTH = 400;
 

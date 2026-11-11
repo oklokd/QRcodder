@@ -1,7 +1,9 @@
 import QRCode from "react-qr-code";
-import { useState, useCallback, memo } from "react";
+import { useState, useCallback, memo, useRef, useEffect } from "react";
+import { useApp } from "./context/AppContext";
 import { useIsMobile } from "./useIsMobile";
-import './qrCodeGenerator.css';
+import { downloadQrAsPng } from "./utils/qrUtils";
+import './QrCodeGenerator.css';
 
 const MAX_LENGTH = 400;
 
@@ -18,18 +20,28 @@ const QrDisplay = memo(({ value }) => {
     );
 });
 
-const QrCodeGenerator = ({ externalValue }) => {
+const QrCodeGenerator = ({ externalValue, onViewHistory }) => {
+    const { t, addGenHistory } = useApp();
     const [localValue, setLocalValue] = useState(null);
     const [result, setResult] = useState('');
     const isMobile = useIsMobile();
+    const wrapperRef = useRef(null);
 
     const value = localValue !== null ? localValue : (externalValue || '');
+
+    useEffect(() => {
+        if (externalValue) {
+            setLocalValue(externalValue);
+            setResult('');
+        }
+    }, [externalValue]);
 
     const onClickHandler = useCallback(() => {
         if (!value.trim()) return;
         setResult(value);
+        addGenHistory(value);
         setLocalValue('');
-    }, [value]);
+    }, [value, addGenHistory]);
 
     const onChangeHandler = useCallback((event) => {
         const newValue = event.target.value;
@@ -45,14 +57,21 @@ const QrCodeGenerator = ({ externalValue }) => {
         }
     }, [onClickHandler]);
 
+    const handleDownload = () => {
+        const svg = wrapperRef.current?.querySelector('svg');
+        if (svg) {
+            downloadQrAsPng(svg, `qrcode_${Date.now()}.png`);
+        }
+    };
+
     return (
         <div className="qr-code-generator">
-            <div className="qr-code-wrapper">
+            <div className="qr-code-wrapper" ref={wrapperRef}>
                 {result !== '' ? (
                     <QrDisplay value={result} />
                 ) : (
                     <div className="qr-placeholder">
-                        QR появится здесь
+                        {t('placeholder_qr')}
                     </div>
                 )}
             </div>
@@ -60,7 +79,7 @@ const QrCodeGenerator = ({ externalValue }) => {
             <input
                 type="text"
                 className="input"
-                placeholder={isMobile ? "Текст для QR" : "Input text to generate QR code"}
+                placeholder={isMobile ? t('placeholder_input_mobile') : t('placeholder_input')}
                 value={value}
                 onChange={onChangeHandler}
                 onKeyDown={onKeyDownHandler}
@@ -72,8 +91,18 @@ const QrCodeGenerator = ({ externalValue }) => {
                 className="button"
                 aria-label="Generate QR code"
             >
-                <span className="label-full" aria-hidden="true">Generate QR</span>
-                <span className="label-short" aria-hidden="true">QR</span>
+                <span className="label-full">{t('btn_generate')}</span>
+                <span className="label-short">QR</span>
+            </button>
+
+            {result !== '' && (
+                <button className="button download-btn" onClick={handleDownload}>
+                    {t('btn_download')}
+                </button>
+            )}
+
+            <button className="text-link" onClick={onViewHistory}>
+                {t('btn_go_history')}
             </button>
         </div>
     );

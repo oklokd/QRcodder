@@ -1,35 +1,18 @@
-body {
-    background-color: #f0f0f0;     
-}
-
-.app-layout {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 40px;
-    padding: 100px 20px;
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    box-sizing: border-box;
-    flex-grow: 1;
-}
-
-.qr-code-generator,
-.scanner-wrapper {
+.qr-code-generator {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     gap: 0;
     width: 300px;
-    height: 480px;
+    height: auto;
+    min-height: 480px;
     flex-shrink: 0;
-    background-color: white;
+    background-color: var(--card-bg);
     padding: 40px;
     border-radius: 20px;
     box-sizing: border-box;
+    transition: background-color 0.3s;
 }
 
 .qr-code-wrapper {
@@ -41,17 +24,6 @@ body {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-}
-
-.scanner-video-box {
-    width: 100%;
-    max-width: 200px;
-    aspect-ratio: 1 / 1;
-    margin-bottom: 30px;
-    border-radius: 8px;
-    overflow: hidden;
-    flex-shrink: 0;
-    background-color: #000;
 }
 
 .qr-code {
@@ -66,10 +38,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px dashed #c0c0c0;
+    border: 2px dashed var(--border);
     border-radius: 8px;
-    color: #9a9a9a;
-    font-family: monospace;
+    color: var(--text-muted);
+    font-family: var(--mono);
     font-size: 14px;
     text-align: center;
     padding: 10px;
@@ -79,17 +51,22 @@ body {
 .input {
     width: 100%;
     max-width: 200px;
-    padding: clamp(8px, 2.5vw, 10px);
-    font-size: clamp(16px, 4vw, 18px);
+    padding: 10px;
+    font-size: 16px;
     font-weight: bold;
-    font-family: monospace;
+    font-family: var(--mono);
     border-radius: 5px;
     background-color: #939393;
+    color: #fff;
     border: 2px solid transparent;
     margin-bottom: 20px;
     box-sizing: border-box;
     transition: box-shadow 0.25s ease, border-color 0.25s ease;
     margin-top: auto;
+}
+
+.input::placeholder {
+    color: #e0e0e0;
 }
 
 .input:focus {
@@ -98,103 +75,21 @@ body {
     border-color: rgba(139, 231, 243, 0.6);
 }
 
-.button {
-    width: 100%;
-    max-width: 200px;
-    background-color: rgb(66, 129, 132);
-    color: white;
-    padding: clamp(10px, 2.5vw, 12px);
-    border-style: outset;
-    border-radius: 10px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: clamp(16px, 4.5vw, 20px);
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-.button:hover {
-    background-color: rgb(56, 112, 115);
-}
-
-.button:active {
-    transform: scale(0.98);
-}
-
 .label-short {
     display: none;
 }
 
-.scan-result-box {
-    width: 100%;
-    max-width: 200px;
-    min-height: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    border: 1px dashed #ccc;
-    box-sizing: border-box;
-    word-break: break-all;
-    margin-top: auto;
-}
-
-.scan-label {
-    margin: 0 0 5px 0;
-    font-size: 12px;
-    color: #888;
-    text-transform: uppercase;
-}
-
-.scan-value {
-    margin: 0 0 15px 0;
-    font-family: monospace;
-    font-size: 16px;
-    font-weight: bold;
-    color: #305d55;
-}
-
-.scan-placeholder {
-    margin: 0;
-    color: #999;
-    font-style: italic;
-    font-size: 14px;
-}
-
-.scan-result-box .button {
-    padding: 8px 12px;
-    font-size: 14px;
-    max-width: 150px;
-    margin-bottom: 0;
-}
-
 @media (max-width: 768px) {
-    .app-layout {
-        flex-direction: column;
-        align-items: center;
-        padding: 40px 20px 100px 20px;
-        gap: 30px;
-    }
-
-    .qr-code-generator,
-    .scanner-wrapper {
+    .qr-code-generator {
         padding: 30px 20px;
         width: 100%;
         max-width: 320px;
-        height: auto;
+        min-height: auto;
     }
 
     .input {
         max-width: 100%;
         margin-top: 20px;
-    }
-
-    .button {
-        max-width: 100%;
     }
 
     .label-full {

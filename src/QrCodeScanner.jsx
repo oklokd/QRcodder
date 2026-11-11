@@ -1,5 +1,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { Scanner } from '@yudiel/react-qr-scanner';
+import { useApp } from './context/AppContext';
+import './QrCodeScanner.css';
 
 const settings = {
     audio: false,
@@ -8,18 +10,12 @@ const settings = {
 };
 
 const styleSettings = {
-    container: {
-        width: '100%',
-        height: '100%',
-    },
-    video: {
-        objectFit: 'cover',
-        width: '100%',
-        height: '100%',
-    }
+    container: { width: '100%', height: '100%' },
+    video: { objectFit: 'cover', width: '100%', height: '100%' }
 };
 
-const QrCodeScanner = ({ onScanned }) => {
+const QrCodeScanner = ({ onViewHistory }) => {
+    const { t, addScanHistory } = useApp();
     const [scanResult, setScanResult] = useState('');
     const [isPaused, setIsPaused] = useState(false);
     const [error, setError] = useState('');
@@ -30,11 +26,8 @@ const QrCodeScanner = ({ onScanned }) => {
         const scannedValue = result[0].rawValue;
         setScanResult(scannedValue);
         setIsPaused(true);
-        
-        if (onScanned) {
-            onScanned(scannedValue);
-        }
-    }, [isPaused, onScanned]);
+        addScanHistory(scannedValue);
+    }, [isPaused, addScanHistory]);
 
     const handleResume = () => {
         setScanResult('');
@@ -43,9 +36,8 @@ const QrCodeScanner = ({ onScanned }) => {
     };
 
     const handleError = useCallback((err) => {
-        setError('Ошибка доступа к камере. Разрешите доступ в браузере.');
-        console.log(err?.message);
-    }, []);
+        setError(t('scan_error'));
+    }, [t]);
 
     const scannerComponents = useMemo(() => (
         <Scanner
@@ -72,18 +64,22 @@ const QrCodeScanner = ({ onScanned }) => {
             <div className="scan-result-box">
                 {scanResult ? (
                     <>
-                        <p className="scan-label">Результат:</p>
+                        <p className="scan-label">{t('result')}</p>
                         <p className="scan-value">{scanResult}</p>
                         <button className="button" onClick={handleResume}>
-                            Сканировать еще
+                            {t('btn_resume_scan')}
                         </button>
                     </>
                 ) : (
                     <p className="scan-placeholder">
-                        {error ? "Нет доступа к камере" : "Наведите камеру на QR-код"}
+                        {error ? t('scan_no_access') : t('placeholder_scan')}
                     </p>
                 )}
             </div>
+            
+            <button className="text-link" onClick={onViewHistory}>
+                {t('btn_go_history')}
+            </button>
         </div>
     );
 };

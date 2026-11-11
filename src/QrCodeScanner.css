@@ -1,0 +1,97 @@
+.scanner-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
+    width: 300px;
+    min-height: 480px;
+    flex-shrink: 0;
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    transition: background-color 0.3s;
+}
+
+.scanner-video-box {
+    width: 100%;
+    max-width: 200px;
+    aspect-ratio: 1 / 1;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: #000;
+}
+
+.scan-result-box {
+    width: 100%;
+    max-width: 200px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 15px;
+    background-color: var(--bg);
+    border-radius: 10px;
+    border: 1px dashed var(--border);
+    box-sizing: border-box;
+    word-break: break-all;
+    margin-top: auto;
+}
+
+.scan-label {
+    margin: 0 0 5px 0;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.scan-value {
+    margin: 0 0 15px 0;
+    font-family: var(--mono);
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.scan-placeholder {
+    margin: 0;
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 14px;
+}
+
+.scan-result-box .button {
+    padding: 8px 12px;
+    font-size: 14px;
+    max-width: 150px;
+    margin-bottom: 0;
+}
+
+.scan-error {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    background-color: #ffebee;
+    color: #c62828;
+    font-size: 13px;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .scanner-wrapper {
+        padding: 30px 20px;
+        width: 100%;
+        max-width: 320px;
+        min-height: auto;
+    }
+}

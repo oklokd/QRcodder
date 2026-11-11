@@ -1,0 +1,57 @@
+.app-layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 100px 20px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    flex-grow: 1;
+}
+
+.button {
+    width: 100%;
+    max-width: 200px;
+    background-color: rgb(66, 129, 132);
+    color: white;
+    padding: clamp(10px, 2.5vw, 12px);
+    border-style: outset;
+    border-radius: 10px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: clamp(16px, 4.5vw, 20px);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.button:hover {
+    background-color: rgb(56, 112, 115);
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+    .app-layout {
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px 100px 20px;
+        gap: 30px;
+    }
+
+    .button {
+        max-width: 100%;
+    }
+
+    .label-full {
+        display: none;
+    }
+
+    .label-short {
+        display: inline;
+    }
+}
